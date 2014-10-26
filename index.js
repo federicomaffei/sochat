@@ -4,6 +4,8 @@ var http = require("http");
 var server = http.Server(app);
 var io = require('socket.io').listen(server);
 
+app.use("/stylesheets", express.static(__dirname + '/stylesheets'));
+
 app.get('/', function(req,res){
 	res.sendFile('index.html', {"root": __dirname});
 });
@@ -12,9 +14,9 @@ io.on('connection', function(socket){
 	socket.on('chat message', function(msg){
 		io.emit('chat message', msg);
 	});
-	// socket.on('disconnect', function(){
-	// 	console.log('a user disconnected from the socket.');
-	// });
+	socket.on('disconnect', function(){
+		io.emit('disconnect message');
+	});
 });
 
 server.listen('3000', function(){
