@@ -5,6 +5,7 @@ var server = http.Server(app);
 var io = require('socket.io').listen(server);
 
 app.use("/stylesheets", express.static(__dirname + '/stylesheets'));
+app.use("/js", express.static(__dirname + '/js'));
 
 app.get('/', function(req,res){
 	res.sendFile('index.html', {"root": __dirname});
