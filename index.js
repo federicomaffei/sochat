@@ -9,7 +9,12 @@ app.get('/', function(req,res){
 });
 
 io.on('connection', function(socket){
-	console.log('a user connected to socket.');
+	socket.on('chat message', function(msg){
+		io.emit('chat message', msg);
+	});
+	// socket.on('disconnect', function(){
+	// 	console.log('a user disconnected from the socket.');
+	// });
 });
 
 server.listen('3000', function(){
